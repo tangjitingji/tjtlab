@@ -1,0 +1,43 @@
+[ 2017-11-03T10:53:18+08:00 ] ERR: [256] Smarty error: [in Register/register.html line 11]: syntax error: unrecognized tag: $('input[name=&quot;submitbtn&quot;]').click(function(){
+                var val=$('input:checkbox[name=&quot;mycheck&quot;]:checked').val();
+                if(val==null){
+                    alert(&quot;请选择性别&quot;); (Smarty_Compiler.class.php, line 446) /Applications/MAMP/htdocs/tjtlab/ThinkPHP/Extend/Vendor/Smarty/Smarty.class.php 第 1094 行.
+[ 2017-11-03T10:55:40+08:00 ] ERR: [256] Smarty error: [in Register/register.html line 11]: syntax error: unrecognized tag: $('input[name=&quot;submitbtn&quot;]').click(function(){
+                var val=$('input:checkbox[name=&quot;mycheck&quot;]:checked').val();
+                if(val==null){
+                    alert(&quot;请选择性别&quot;); (Smarty_Compiler.class.php, line 446) /Applications/MAMP/htdocs/tjtlab/ThinkPHP/Extend/Vendor/Smarty/Smarty.class.php 第 1094 行.
+[ 2017-11-03T10:57:00+08:00 ] ERR: [256] Smarty error: [in Register/register.html line 11]: syntax error: unrecognized tag: $('input[name=&quot;submitbtn&quot;]').click(function(){
+                var val=$('input:checkbox[name=&quot;mycheck&quot;]:checked').val();
+                if(val==null){
+                    alert(&quot;请选择性别&quot;); (Smarty_Compiler.class.php, line 446) /Applications/MAMP/htdocs/tjtlab/ThinkPHP/Extend/Vendor/Smarty/Smarty.class.php 第 1094 行.
+[ 2017-11-03T11:02:28+08:00 ] ERR: [256] Smarty error: [in Register/register.html line 11]: syntax error: unrecognized tag: $('input[name=&quot;submitbtn&quot;]').click(function(){
+                var val=$('input:checkbox[name=&quot;mycheck&quot;]:checked').val();
+                if(val==null){
+                    alert(&quot;请选择性别&quot;); (Smarty_Compiler.class.php, line 446) /Applications/MAMP/htdocs/tjtlab/ThinkPHP/Extend/Vendor/Smarty/Smarty.class.php 第 1094 行.
+[ 2017-11-03T11:02:31+08:00 ] ERR: [256] Smarty error: [in Register/register.html line 11]: syntax error: unrecognized tag: $('input[name=&quot;submitbtn&quot;]').click(function(){
+                var val=$('input:checkbox[name=&quot;mycheck&quot;]:checked').val();
+                if(val==null){
+                    alert(&quot;请选择性别&quot;); (Smarty_Compiler.class.php, line 446) /Applications/MAMP/htdocs/tjtlab/ThinkPHP/Extend/Vendor/Smarty/Smarty.class.php 第 1094 行.
+[ 2017-11-03T11:24:19+08:00 ] ERR: (ThinkException) You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHERE ( `userid` = 13134 )' at line 1
+ [ SQL语句 ] : UPDATE `tjt_studentinfo` SET  WHERE ( `userid` = 13134 )
+[ 2017-11-03T12:17:21+08:00 ] 0.0.0.0 /tjtlab/index.php/Login/doLogin
+ERR: Unable to parse resource name ""
+
+[ 2017-11-03T12:17:36+08:00 ] 0.0.0.0 /tjtlab/index.php/Login/doLogin
+ERR: Unable to parse resource name ""
+
+[ 2017-11-03T12:17:49+08:00 ] 0.0.0.0 /tjtlab/index.php/Login/doLogin
+ERR: Unable to parse resource name ""
+
+[ 2017-11-03T12:19:26+08:00 ] 0.0.0.0 /tjtlab/index.php/Login/doLogin
+ERR: Unable to parse resource name ""
+
+[ 2017-11-03T12:47:48+08:00 ] 0.0.0.0 /tjtlab/index.php/Modifypassword
+ERR: Method ModifyPasswordAction::__call() does not exist
+
+[ 2017-11-03T12:47:58+08:00 ] 0.0.0.0 /tjtlab/index.php/Modifypassword/modifypassword
+ERR: Method ModifyPasswordAction::__call() does not exist
+
+[ 2017-11-03T12:48:00+08:00 ] 0.0.0.0 /tjtlab/index.php/Modifypassword/modifypassword
+ERR: Method ModifyPasswordAction::__call() does not exist
+
