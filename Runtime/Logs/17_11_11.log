@@ -1,0 +1,18 @@
+[ 2017-11-11T20:15:41+08:00 ] 0.0.0.0 /tjtlab/Index.php/UserDataManage/import
+ERR: 无法加载模块:UserDataManage
+
+[ 2017-11-11T20:15:56+08:00 ] 0.0.0.0 /tjtlab/Index.php/StudentDataManage/import
+ERR: 无法加载模块:StudentDataManage
+
+[ 2017-11-11T21:37:06+08:00 ] 0.0.0.0 /tjtlab/Index.php/DataManage/import.html
+ERR: 无法加载模块:DataManage
+
+[ 2017-11-11T22:54:07+08:00 ] 0.0.0.0 /tjtlab/Index.php/StudentDataManage/font-awesome/css/font-awesome.css
+ERR: 非法操作:font-awesome
+
+[ 2017-11-11T22:54:07+08:00 ] 0.0.0.0 /tjtlab/Index.php/StudentDataManage/css/plugins/dataTables/datatables.min.css
+ERR: 非法操作:css
+
+[ 2017-11-11T22:55:04+08:00 ] 0.0.0.0 /tjtlab/Index.php/StudentDataManage/font-awesome/css/font-awesome.css
+ERR: 非法操作:font-awesome
+

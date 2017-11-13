@@ -11,21 +11,21 @@
             $('button[name="submitbtn"]').click(function(){
                 var val=$('input:checkbox[name="mycheck"]:checked').val();
                 if(val==1){
-                    var re = /^[a-zA-Z0-9]{6,10}$/;
+                    var re = /^[0-9]{6,10}$/;
                     if(re.test($('#studentid').val()) && $('#studentid').length > 0){
                         var re1 = '/^[a-zA-Z0-9]{6,}$/';
                         if(re1.test($('#passid').val()) && $('#passid').length > 0){
                             $('form[name="myForm"]').submit();
 
                         }else{
-                            alert('密码格式不对')
+                            alert('密码必须是6个以上的字母或数字')
                         }
                     }else{
                         alert("学号格式不对")
                     }
                 }
                 else{
-                    alert('请认真阅读协议')
+                    alert('请认真阅读并勾选协议，否则无法进行操作。')
                 }
             });
 
