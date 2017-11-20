@@ -27,7 +27,7 @@ class LoginAction extends Action
 
         $user=M('tjt_studentinfo');
         $where['userid']=$userid;
-        $where['password']=$password;
+        $where['userpsw']=$password;
 
         $arr=$user->field('userid')->where($where)->find();
 

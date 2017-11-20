@@ -36,6 +36,9 @@
                         </div>
                     </li>
                     <li>
+                        <a href="__APP__/Index/index.html"><i class="fa fa-th-large"></i> <span class="nav-label">首页</span></a>
+                    </li>
+                    <li>
                         <a href="search.html"><i class="fa fa-th-large"></i> <span class="nav-label">查询用户列表</span></a>
                     </li>
                     <li>
@@ -44,6 +47,12 @@
                     <li>
                         <a href="output.html"><i class="fa fa-bar-chart-o"></i> <span class="nav-label">导出用户数据</span></a>
                     </li>
+                    <li>
+                        <a href="searchInfo.html"><i class="fa fa-bar-chart-o"></i> <span class="nav-label">查询用户详细信息</span></a>
+                    </li>
+                    <li>
+                        <a href="outputInfo.html"><i class="fa fa-bar-chart-o"></i> <span class="nav-label">导出用户详细信息</span></a>
+                    </li>
                 </ul>
 
             </div>
@@ -51,19 +60,19 @@
 
         <div id="page-wrapper" class="gray-bg">
             <div class="row border-bottom">
-            <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
-                <ul class="nav navbar-top-links navbar-right">
-                    <li>
-                        <span class="m-r-sm text-muted welcome-message">Welcome to TJTweb Admin Theme.</span>
-                    </li>
-                    <li>
-                        <a href="../Login/login.html">
-                            <i class="fa fa-sign-out"></i> Log out
-                        </a>
-                    </li>
-                </ul>
+            <!--<nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">-->
+                <!--<ul class="nav navbar-top-links navbar-right">-->
+                    <!--<li>-->
+                        <!--<span class="m-r-sm text-muted welcome-message">Welcome to TJTweb Admin Theme.</span>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                        <!--<a href="../Login/login.html">-->
+                            <!--<i class="fa fa-sign-out"></i> Log out-->
+                        <!--</a>-->
+                    <!--</li>-->
+                <!--</ul>-->
 
-            </nav>
+            <!--</nav>-->
             </div>
                 <div class="row wrapper border-bottom white-bg page-heading">
                     <div class="col-lg-10">

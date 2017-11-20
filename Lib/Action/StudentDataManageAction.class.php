@@ -63,158 +63,184 @@ class StudentDataManageAction extends CommonAction {
 
 	//导出用户数据
 	function output(){
+		$m = M('tjt_studentinfo');
+		$data = $m->select();
+		$this->assign('data',$data);
 		$this->display();
 	}
 
-	function exportExcel($filename,$title,$data){
-
-		//导出xls 开始
-		if (!empty($title)){
-			foreach ($title as $k => $v) {
-				$title[$k]=iconv("UTF-8", "GB2312",$v);
-			}
-			$title= implode("\t", $title);
-			echo "$title\n";
-		}
-		if (!empty($data)){
-			foreach($data as $key=>$val){
-				foreach ($val as $ck => $cv) {
-					$data[$key][$ck]=iconv("UTF-8", "GB2312", $cv);
-				}
-				$data[$key]=implode("\t", $data[$key]);
-			}
-			echo implode("\n",$data);
-		}
-		header("Content-type:application/octet-stream");
-		header("Accept-Ranges:bytes");
-		header("Content-type:application/vnd.ms-excel");
-		header("Content-Disposition:attachment;filename=".$filename.".xls");
-		header("Pragma: no-cache");
-		header("Expires: 0");
-	}
-
-
-	public function exportExcel2($expTitle,$expCellName,$expTableData){
-		ob_end_clean();
-		//$xlsTitle = iconv('utf-8', 'gb2312', $expTitle);//文件名称
-		$fileName = $_SESSION['studentInfo'].date('_YmdHis');//or $xlsTitle 文件名称可根据自己情况设定
-		$cellNum = count($expCellName);
-		$dataNum = count($expTableData);
-
-		Vendor("PHPExcel.Classes.PHPExcel");
-
-
-		$objPHPExcel = new PHPExcel();
-		$cellName = array('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','AA','AB','AC','AD','AE','AF','AG','AH','AI','AJ','AK','AL','AM','AN','AO','AP','AQ','AR','AS','AT','AU','AV','AW','AX','AY','AZ');
-
-		$objPHPExcel->getActiveSheet(0)->mergeCells('A1:'.$cellName[$cellNum-1].'1');//合并单元格
-		// $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A1', $expTitle.'  Export time:'.date('Y-m-d H:i:s'));
-		for($i=0;$i<$cellNum;$i++){
-			$objPHPExcel->setActiveSheetIndex(0)->setCellValue($cellName[$i].'2', $expCellName[$i][1]);
-		}
-		// Miscellaneous glyphs, UTF-8
-		for($i=0;$i<$dataNum;$i++){
-			for($j=0;$j<$cellNum;$j++){
-				$objPHPExcel->getActiveSheet(0)->setCellValue($cellName[$j].($i+3), $expTableData[$i][$expCellName[$j][0]]);
-			}
-		}
-		if (!empty($expTitle)){
-			foreach ($expTitle as $k => $v) {
-				$expTitle[$k]=iconv("UTF-8", "GB2312",$v);
-			}
-			$expTitle= implode("\t", $expTitle);
-			echo "$expTitle\n";
-		}
-		if (!empty($expTableData)){
-			foreach($expTableData as $key=>$val){
-				foreach ($val as $ck => $cv) {
-					$data[$key][$ck]=iconv("UTF-8", "GB2312", $cv);
-				}
-				$expTableData[$key]=implode("\t", $expTableData[$key]);
-			}
-			echo implode("\n",$expTableData);
-		}
-
-		ob_end_clean();//清除缓存以免乱码出现
-
-		header('pragma:public');
-		header('Content-type:application/vnd.ms-excel;name="'.$expTitle.'.xls"');
-		header("Content-Disposition:attachment;filename=$fileName.xls");//attachment新窗口打印inline本窗口打印
-		$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
-		$objWriter->save('php://output');
-		exit;
-	}
-
-	function push($name,$datau)
+	public function export()
 	{
-		Vendor("PHPExcel.Classes.PHPExcel");
-		error_reporting(E_ALL);
-		date_default_timezone_set('Asia/Shanghai');
-		$objPHPExcel = new PHPExcel();
+		import("ORG.Excel.Excel");
+		$list = M('tjt_studentinfo')->select();
+		//print_r($list);
+		$row = array();
+		$row[0] = array( '序号','用户名', '学号','密码' );
+		$i = 1;
+		foreach ($list as $v) {
+			$row[$i]['id'] = $i;
 
-		$objPHPExcel->getProperties()->setCreator("tangjiting");
-		$objPHPExcel->getProperties()   ->setLastModifiedBy("tangjiting");
-		$objPHPExcel->getProperties()  ->setKeywords("excel");
-		$objPHPExcel->getProperties()  ->setCategory("result file");
-
-		$num=1;
-		$objPHPExcel->setActiveSheetIndex()->setCellValue('A' . $num, 'userid');
-		$objPHPExcel->setActiveSheetIndex() ->setCellValue('B' . $num, 'username');
-		$objPHPExcel->setActiveSheetIndex() ->setCellValue('C' . $num, 'userpwd');
-
-		foreach ($datau as $v) {
-			$num ++;
-			$objPHPExcel->setActiveSheetIndex()->setCellValue('A' . $num, $v['userid']);
-			$objPHPExcel->setActiveSheetIndex() ->setCellValue('B' . $num, $v['username']);
-			$objPHPExcel->setActiveSheetIndex() ->setCellValue('C' . $num, $v['userpwd']);
-
+			$row[$i]['username'] = $v['username'];
+			$row[$i]['userid'] = $v['userid'];
+			$row[$i]['userpsw'] = $v['userpsw'];
+			$i++;
 		}
 
-		$objPHPExcel->getActiveSheet()->setTitle('User');
-		$objPHPExcel->setActiveSheetIndex(0);
-		if (!empty($datau)){
-			foreach($datau as $key=>$val){
-				foreach ($val as $ck => $cv) {
-					$datau[$key][$ck]=iconv("UTF-8", "GB2312", $cv);
-				}
-				$datau[$key]=implode("\t", $datau[$key]);
-			}
-			echo implode("\n",$datau);
-		}
-		ob_end_clean();
-		header('Content-Type: application/vnd.ms-excel');
-		header('Content-Disposition: attachment;filename="' . $name . '.xls"');
-		header('Cache-Control: max-age=0');
-		$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
-		$objWriter->save('php://output');
-		exit;
+		$xls = new \Excel_XML('UTF-8', false, 'datalist');
+		$xls->addArray($row);
+		$xls->generateXML('tjt');
 	}
+
+
+//	function exportExcel($filename,$title,$data){
+//
+//		//导出xls 开始
+//		if (!empty($title)){
+//			foreach ($title as $k => $v) {
+//				$title[$k]=iconv("UTF-8", "GB2312",$v);
+//			}
+//			$title= implode("\t", $title);
+//			echo "$title\n";
+//		}
+//		if (!empty($data)){
+//			foreach($data as $key=>$val){
+//				foreach ($val as $ck => $cv) {
+//					$data[$key][$ck]=iconv("UTF-8", "GB2312", $cv);
+//				}
+//				$data[$key]=implode("\t", $data[$key]);
+//			}
+//			echo implode("\n",$data);
+//		}
+//		header("Content-type:application/octet-stream");
+//		header("Accept-Ranges:bytes");
+//		header("Content-type:application/vnd.ms-excel");
+//		header("Content-Disposition:attachment;filename=".$filename.".xls");
+//		header("Pragma: no-cache");
+//		header("Expires: 0");
+//	}
+
+
+//	public function exportExcel2($expTitle,$expCellName,$expTableData){
+//		ob_end_clean();
+//		//$xlsTitle = iconv('utf-8', 'gb2312', $expTitle);//文件名称
+//		$fileName = $_SESSION['studentInfo'].date('_YmdHis');//or $xlsTitle 文件名称可根据自己情况设定
+//		$cellNum = count($expCellName);
+//		$dataNum = count($expTableData);
+//
+//		Vendor("PHPExcel.Classes.PHPExcel");
+//
+//
+//		$objPHPExcel = new PHPExcel();
+//		$cellName = array('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','AA','AB','AC','AD','AE','AF','AG','AH','AI','AJ','AK','AL','AM','AN','AO','AP','AQ','AR','AS','AT','AU','AV','AW','AX','AY','AZ');
+//
+//		$objPHPExcel->getActiveSheet(0)->mergeCells('A1:'.$cellName[$cellNum-1].'1');//合并单元格
+//		// $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A1', $expTitle.'  Export time:'.date('Y-m-d H:i:s'));
+//		for($i=0;$i<$cellNum;$i++){
+//			$objPHPExcel->setActiveSheetIndex(0)->setCellValue($cellName[$i].'2', $expCellName[$i][1]);
+//		}
+//		// Miscellaneous glyphs, UTF-8
+//		for($i=0;$i<$dataNum;$i++){
+//			for($j=0;$j<$cellNum;$j++){
+//				$objPHPExcel->getActiveSheet(0)->setCellValue($cellName[$j].($i+3), $expTableData[$i][$expCellName[$j][0]]);
+//			}
+//		}
+//		if (!empty($expTitle)){
+//			foreach ($expTitle as $k => $v) {
+//				$expTitle[$k]=iconv("UTF-8", "GB2312",$v);
+//			}
+//			$expTitle= implode("\t", $expTitle);
+//			echo "$expTitle\n";
+//		}
+//		if (!empty($expTableData)){
+//			foreach($expTableData as $key=>$val){
+//				foreach ($val as $ck => $cv) {
+//					$data[$key][$ck]=iconv("UTF-8", "GB2312", $cv);
+//				}
+//				$expTableData[$key]=implode("\t", $expTableData[$key]);
+//			}
+//			echo implode("\n",$expTableData);
+//		}
+//
+//		ob_end_clean();//清除缓存以免乱码出现
+//
+//		header('pragma:public');
+//		header('Content-type:application/vnd.ms-excel;name="'.$expTitle.'.xls"');
+//		header("Content-Disposition:attachment;filename=$fileName.xls");//attachment新窗口打印inline本窗口打印
+//		$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+//		$objWriter->save('php://output');
+//		exit;
+//	}
+
+//	function push($name,$datau)
+//	{
+//		Vendor("PHPExcel.Classes.PHPExcel");
+//		error_reporting(E_ALL);
+//		date_default_timezone_set('Asia/Shanghai');
+//		$objPHPExcel = new PHPExcel();
+//
+//		$objPHPExcel->getProperties()->setCreator("tangjiting");
+//		$objPHPExcel->getProperties()   ->setLastModifiedBy("tangjiting");
+//		$objPHPExcel->getProperties()  ->setKeywords("excel");
+//		$objPHPExcel->getProperties()  ->setCategory("result file");
+//
+//		$num=1;
+//		$objPHPExcel->setActiveSheetIndex()->setCellValue('A' . $num, 'userid');
+//		$objPHPExcel->setActiveSheetIndex() ->setCellValue('B' . $num, 'username');
+//		$objPHPExcel->setActiveSheetIndex() ->setCellValue('C' . $num, 'userpwd');
+//
+//		foreach ($datau as $v) {
+//			$num ++;
+//			$objPHPExcel->setActiveSheetIndex()->setCellValue('A' . $num, $v['userid']);
+//			$objPHPExcel->setActiveSheetIndex() ->setCellValue('B' . $num, $v['username']);
+//			$objPHPExcel->setActiveSheetIndex() ->setCellValue('C' . $num, $v['userpwd']);
+//
+//		}
+//
+//		$objPHPExcel->getActiveSheet()->setTitle('User');
+//		$objPHPExcel->setActiveSheetIndex(0);
+//		if (!empty($datau)){
+//			foreach($datau as $key=>$val){
+//				foreach ($val as $ck => $cv) {
+//					$datau[$key][$ck]=iconv("UTF-8", "GB2312", $cv);
+//				}
+//				$datau[$key]=implode("\t", $datau[$key]);
+//			}
+//			echo implode("\n",$datau);
+//		}
+//		ob_end_clean();
+//		header('Content-Type: application/vnd.ms-excel');
+//		header('Content-Disposition: attachment;filename="' . $name . '.xls"');
+//		header('Cache-Control: max-age=0');
+//		$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+//		$objWriter->save('php://output');
+//		exit;
+//	}
 	/**
 	 *
 	 * 导出Excel
 	 */
-	function expUser(){//导出Excel
-		$str = date ( 'Ymdhis' );
-		$ename=$str.'Excelfile';    //生成的Excel文件文件名
-		$edata= M("tjt_studentinfo");   //查出数据
-		$edataa = $edata -> select();
-
-		$xlsName  = "UserInfo";
-		$xlsCell  = array(
-			array('userid','学号'),
-			array('username','姓名'),
-			array('userpsw','密码'),
-		);
-		$xlsModel = M('tjt_studentinfo');
-
-		$xlsData  = $xlsModel->Field('userid,username,userpsw')->select();
-
-
-		$this->exportExcel2($xlsName,$xlsCell,$xlsData);
-		//$this->push($xlsName,$xlsData);
-		//$this->push($ename,$edataa);
-
-	}
+//	function expUser(){//导出Excel
+//		$str = date ( 'Ymdhis' );
+//		$ename=$str.'Excelfile';    //生成的Excel文件文件名
+//		$edata= M("tjt_studentinfo");   //查出数据
+//		$edataa = $edata -> select();
+//
+//		$xlsName  = "UserInfo";
+//		$xlsCell  = array(
+//			array('userid','学号'),
+//			array('username','姓名'),
+//			array('userpsw','密码'),
+//		);
+//		$xlsModel = M('tjt_studentinfo');
+//
+//		$xlsData  = $xlsModel->Field('userid,username,userpsw')->select();
+//
+//
+//		$this->exportExcel2($xlsName,$xlsCell,$xlsData);
+//		//$this->push($xlsName,$xlsData);
+//		//$this->push($ename,$edataa);
+//
+//	}
 
 	function search(){
 		$obj_model  = M('tjt_studentinfo');
